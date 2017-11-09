@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.fibre.optique.entities.Individu;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,12 @@ public class VersementMetierImpl implements VersementMetier {
 	public List<Versement> getAllVersement() {
 		return versementRepository.findAll();
 	}
-	
+
+	@Override
+	public List<Versement> getAllVersementOfIndividu(Long idIndividu) {
+		Individu ind = new Individu();
+		ind.setIdIndividu(idIndividu);
+		return versementRepository.findDistinctByIndividuOrderByDateVersementDesc(ind);
+	}
+
 }

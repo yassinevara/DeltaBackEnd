@@ -1,26 +1,12 @@
 package com.fibre.optique.entities;
 
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "individu")
@@ -34,7 +20,8 @@ public class Individu  implements Serializable {
 	private String numSecurite;
 	@OneToOne (mappedBy="individu")
 	private Contrat contrat;
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="individu") //biderctionnel charger les versements en cas de besoin
+	// orphanRemoval delete cascade
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="individu",orphanRemoval = true) //biderctionnel charger les versements en cas de besoin
 	private Collection <Versement> versements; 
 	@ManyToMany
 	private Set <Mission> missions ;

@@ -9,4 +9,5 @@ public interface VersementMetier {
 	public Versement saveVersement(Versement vers);
 	public Versement getVersement(Long id);
 	public List<Versement> getAllVersement();
+	public List<Versement> getAllVersementOfIndividu(Long idIndividu);
 }

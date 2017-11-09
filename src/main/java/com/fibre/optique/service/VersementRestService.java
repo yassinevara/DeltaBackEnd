@@ -21,23 +21,28 @@ public class VersementRestService {
 
 	@Autowired
 	private VersementMetier versementMetier;
-	
+
 	private Logger logger = Logger.getLogger(VersementRestService.class);
-	
-	@RequestMapping(value="/versements",method=RequestMethod.POST) 
+
+	@RequestMapping(value="/versements",method=RequestMethod.POST)
 	public Versement saveVersement( @RequestBody   Versement ver) {
 		logger.info("versement enregistré :"+ ver);
 		return versementMetier.saveVersement(ver);
 	}
-	
-	@RequestMapping(value="/versements/{id}",method=RequestMethod.GET) 
+
+	@RequestMapping(value="/versements/{id}",method=RequestMethod.GET)
 	public Versement getVersement(@PathVariable Long id) {
 		return versementMetier.getVersement(id);
 	}
-	
-	@RequestMapping(value="/versements",method=RequestMethod.GET) 
-	public List<Versement> listIndividu() {
+
+	@RequestMapping(value="/versements",method=RequestMethod.GET)
+	public List<Versement> listVersement() {
 		return versementMetier.getAllVersement();
 	}
-	
+
+	@RequestMapping(value="/versements/individus/{id}",method=RequestMethod.GET)
+	public List<Versement> getVersementsOfIndividu(@PathVariable Long id) {
+		return versementMetier.getAllVersementOfIndividu(id);
+	}
+
 }

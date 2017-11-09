@@ -46,8 +46,8 @@ public class IndividuRestService {
 	}
 	
 	@RequestMapping(value="/individus/{id}",method=RequestMethod.DELETE) //supprression
-	public Individu supprimerIndividu(@PathVariable Long id) {
-		return individuMetier.getIndividu(id);
+	public Boolean supprimerIndividu(@PathVariable Long id) {
+		return individuMetier.deleteIndividu(id);
 	}
 	
 	@RequestMapping(value="/individus/{id}",method=RequestMethod.PUT) //mise a jour
@@ -64,10 +64,10 @@ public class IndividuRestService {
 		return individuMetier.searchByName("%"+nom+"%", page, size);
 	}
 	
-	@RequestMapping(value="/individusByName/{nom}",method=RequestMethod.GET) 
-	public List<Individu> getIndividuByName(@PathVariable String nom){
-		
-		return individuMetier.getIndividuByName("%"+nom+"%");
+	@RequestMapping(value="/individusByName",method=RequestMethod.GET)
+	public List<Individu> getIndividuByName(@RequestParam(name="nom",defaultValue="") String nom){
+		logger.info("get individu by name"+nom);
+		return individuMetier.getIndividuByName(nom);
 	}
 	
 	@RequestMapping(value="/individusByNumSec/{numSec}",method=RequestMethod.GET) 

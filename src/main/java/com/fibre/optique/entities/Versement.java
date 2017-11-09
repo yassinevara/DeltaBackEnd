@@ -1,5 +1,8 @@
 package com.fibre.optique.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,17 +23,18 @@ public class Versement  implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idVersement ;
-	
+
 	private double salaire;
 	@Temporal(TemporalType.DATE)
 	private Date dateVersement;
-	
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name="INDIVIDU_ID")//cle etranger
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //ignore getter onky
 	private Individu individu;
 	public Versement() {
 		super();
-		
+
 	}
 	/**
 	 * @param salaire
@@ -65,7 +69,7 @@ public class Versement  implements Serializable {
 		return idVersement;
 	}
 
-	
-	
+
+
 
 }

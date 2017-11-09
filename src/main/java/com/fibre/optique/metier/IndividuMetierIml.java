@@ -3,6 +3,8 @@ package com.fibre.optique.metier;
 import java.util.List;
 
 
+import com.fibre.optique.FibreOptiqueApplication;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,7 @@ import com.fibre.optique.entities.Individu;
 @Service
 public class IndividuMetierIml implements IndividuMetier {
 
+	private Logger logger = Logger.getLogger(IndividuMetierIml.class);
 	@Autowired
 	IndividuRepository individuRepository;
 	@Override
@@ -24,7 +27,9 @@ public class IndividuMetierIml implements IndividuMetier {
 
 	@Override
 	public List<Individu> getIndividuByName(String name) {
+
 		if(name.equals(null)||name.equals("")){
+			logger.info("get all individu");
 			return this.getAllIndividu();
 		}
 		return individuRepository.findByNomIgnoreCaseContaining(name) ;
